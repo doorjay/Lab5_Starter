@@ -1,4 +1,7 @@
 // expose.js
+console.log('expose.js loaded');
+
+const jsConfetti = new JSConfetti();
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -11,20 +14,17 @@ function init()
   const volumeIcon = document.querySelector('#volume-controls img');
   const playButton = document.querySelector('#expose button');
 
-  // initialize js-confetti 
-  const jsConfetti = new jsConfetti();
-
   // when the user picks a horn
   hornSelect.addEventListener('change', () => 
   {
     const horn = hornSelect.value; // airhorn , carhorn, or partyhorn
 
     // update pic
-    hornImage.src = 'assets/images/${horn}.svg';
-    hornImage.alt = '$hornSelect.selectedOptions[0].text} image';
+    hornImage.src = `assets/images/${horn}.svg`;
+    hornImage.alt = `${hornSelect.selectedOptions[0].text} image`;
 
     // point the audio at the right file
-    audio.src = 'assests/audio/${horn}.mp3';
+    audio.src = `assets/audio/${horn}.mp3`;
 
   });
 
@@ -39,7 +39,7 @@ function init()
     // swap the volume icon
     if (vol === 0)
     {
-      volumeIcon.src = 'assets/icons/volume-level-0.svg';
+      volumeIcon.src = `assets/icons/volume-level-0.svg`;
       volumeIcon.alt = 'Muted';
     }
     else if (vol < 33)
@@ -50,7 +50,7 @@ function init()
     else if (vol < 67)
     {
       volumeIcon.src = 'assets/icons/volume-level-2.svg';
-      volumeIcon.src = 'Volume level 2';
+      volumeIcon.alt = 'Volume level 2';
     }
     else
     {
