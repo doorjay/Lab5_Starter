@@ -26,7 +26,34 @@ function init()
     });
   
   }
-}
 
-populateVoiceList();
-window.speechSynthesis.addEventListener('voiceschanged', populateVoiceList);
+  populateVoiceList();
+  window.speechSynthesis.addEventListener('voiceschanged', populateVoiceList);
+
+  // When “Press to Talk” is clicked
+  talkButton.addEventListener('click', () => 
+  {
+    if (voiceSelect.value === 'select') return;  // no voice chosen
+    
+    // create the utterance
+    const utterance = new SpeechSynthesisUtterance(textArea.value);
+    utterance.voice = voices[voiceSelect.value];
+
+    // swap to open-mouth face when speaking starts
+    utterance.addEventListener('start', () => 
+    {
+      faceImage.src = 'assets/images/smiling-open.png';
+      faceImage.alt = 'Speaking face';
+    });
+
+    // revert back when done
+    utterance.addEventListener('end', () => 
+    {
+      faceImage.src = 'assets/images/smiling.png';
+      faceImage.alt = 'Smiling face';
+    });
+
+    // speak!
+    window.speechSynthesis.speak(utterance);
+  });
+}
